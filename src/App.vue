@@ -2,25 +2,18 @@
   <main>
   <h1>¿Cuál es este Pokémon?</h1>
 
-  <PokemonImage
-    v-if="startGame"
-    :pokemon-id="2"
+  <PokemonImage 
+    v-if="this.pokemon"
+    :pokemon-id="this.pokemon.id"
     :show-images="showImages"
   />
 
-  <PokemonOptions
-    v-if="startGame"
+  <PokemonOptions 
+    :pokemons="pokemonArr"
+    @selection="checkAnswer"
   />
 
-  <!-- <button
-    v-if="!playing"
-    type="button"
-    class="btn"
-    @click="start"
-  >
-    Nuevo Juego!
-  </button> -->
-
+  <h2> {{ message }} </h2>
 
   </main>
 </template>
@@ -28,6 +21,9 @@
 <script>
 import PokemonImage from './components/PokemonImage.vue'
 import PokemonOptions from './components/PokemonOptions.vue'
+
+import pokemonOptions from '@/helpers/getPokemonOptions'
+
 
 export default {
   name: 'App',
@@ -39,18 +35,36 @@ export default {
   data() {
     return {
       showImages: false,
-      startGame: true,
-      // playing: false,
+      pokemonArr: [],
+      pokemon: null,
+      message: null,
     }
   },
 
   methods: {
-    // start() {
-    //   this.startGame = true
-    //   this.playing = true
-    // },
+    async getrandomPokemon() {
+      this.pokemonArr = await pokemonOptions()
+
+      const rndInt = Math.floor(Math.random() * 4)
+      
+      this.pokemon = this.pokemonArr[ rndInt ]
+    },
+
+    checkAnswer( pokemonId ) {
+      this.showImages = true
+
+      if( this.pokemon.id === pokemonId ) {
+        this.message = `Correcto, era ${ this.pokemon.name }!`
+      } else {
+        this.message = `Oops, era ${ this.pokemon.name }`
+      }
+    }
 
   },
+
+  mounted() {
+    this.getrandomPokemon()
+  }
 
 }
 </script>
@@ -67,7 +81,7 @@ export default {
 main {
   background-color: hsla(0, 0%, 86%, 90%);
   padding: 1rem 1rem;
-  margin: 1rem;
+  margin: 0 1rem;
   border-radius: 1.5rem;
 
   @media screen and ( min-width: 33.75rem ) {

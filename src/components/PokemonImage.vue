@@ -39,7 +39,8 @@ export default {
 
 <style scoped>
 img {
-    max-width: 100%;
+    max-width: 9rem;
+
 }
 
 .hidden-pokemon {

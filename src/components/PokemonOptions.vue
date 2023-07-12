@@ -1,15 +1,25 @@
 <template>
   <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
+    
+    <li v-for="pokemon in pokemons"
+        :key="pokemon.id"
+        @click=" $emit( 'selection', pokemon.id ) "
+    >
+      {{ pokemon.name }} 
+    </li>
+
   </ul>
 </template>
 
 <script>
 export default {
-
+  props: {
+    pokemons: {
+      type: Array,
+      required: true,
+    }
+  }
+    
 }
 </script>
 
@@ -25,10 +35,15 @@ ul {
 ul > li {
     width: 75%;
     background-color: azure;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     padding: 0.5rem 0;
     border-radius: 1rem;
     cursor: pointer;
+    border: 1px solid #2c3e50;
+}
+
+li:hover {
+    background-color:beige;
 }
 
 </style>
