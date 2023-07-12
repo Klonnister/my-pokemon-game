@@ -14,6 +14,7 @@
     <PokemonOptions 
       :pokemons="pokemonArr"
       @selection="checkAnswer"
+      :pokemon="pokemon"
     />
 
     <div v-if="showMessage" class="fade-in">

@@ -3,7 +3,7 @@
     
     <li v-for="pokemon in pokemons"
         :key="pokemon.id"
-        @click=" $emit( 'selection', pokemon.id ) "
+        @click=" $emit( 'selection', pokemon.id ), comparePokemons( pokemon.id ) "
     >
       {{ pokemon.name }} 
     </li>
@@ -17,9 +17,19 @@ export default {
     pokemons: {
       type: Array,
       required: true,
+    },
+    pokemon: Object,
+  },
+
+  methods: {
+    comparePokemons( id ) {
+      if( id === this.pokemon.id ) {
+        console.log('correct')
+      } else {
+        console.log('incorrect')
+      }
     }
-  }
-    
+  }  
 }
 </script>
 
