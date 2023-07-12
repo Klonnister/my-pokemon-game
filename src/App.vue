@@ -96,7 +96,6 @@ export default {
     },
 
     newGame() {
-      this.getRandomPokemon()
       this.playing = true
     },
   },
