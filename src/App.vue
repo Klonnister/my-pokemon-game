@@ -1,11 +1,13 @@
 <template>
   <main>
-  <h1>¿Cuál es este Pokémon?</h1>
+  <h1 v-if="pokemon">¿Cuál es este Pokémon?</h1>
+  <p  v-if="!pokemon" class="waiting">Espere, por favor...</p>
 
   <PokemonImage 
     v-if="this.pokemon"
     :pokemon-id="this.pokemon.id"
     :show-images="showImages"
+    class="fade-in"
   />
 
   <PokemonOptions 
@@ -13,8 +15,15 @@
     @selection="checkAnswer"
   />
 
-  <h2> {{ message }} </h2>
-
+  <div v-if="showMessage" class="fade-in">
+    <h2> {{ message }} </h2>
+    <button      
+      class="btn"
+      @click="newGame"
+    >
+    Siguiente
+    </button>
+  </div>
   </main>
 </template>
 
@@ -38,11 +47,12 @@ export default {
       pokemonArr: [],
       pokemon: null,
       message: null,
+      showMessage: false,
     }
   },
 
   methods: {
-    async getrandomPokemon() {
+    async getRandomPokemon() {
       this.pokemonArr = await pokemonOptions()
 
       const rndInt = Math.floor(Math.random() * 4)
@@ -58,12 +68,24 @@ export default {
       } else {
         this.message = `Oops, era ${ this.pokemon.name }`
       }
-    }
+
+      this.showMessage = true
+    },
+
+    newGame() {
+      this.showImages = false
+      this.pokemonArr = []
+      this.pokemon =  null
+      this.message = null
+      this.showMessage = false
+
+      this.getRandomPokemon()
+    },
 
   },
 
   mounted() {
-    this.getrandomPokemon()
+    this.getRandomPokemon()
   }
 
 }
@@ -79,7 +101,7 @@ export default {
 }
 
 main {
-  background-color: hsla(0, 0%, 86%, 90%);
+  background-color: hsla(0, 0%, 86%, 75%);
   padding: 1rem 1rem;
   margin: 0 1rem;
   border-radius: 1.5rem;
@@ -94,5 +116,10 @@ main {
   background-color: #2c3e50;
   color: white;
   border-radius: 1rem;
+}
+
+.waiting {
+  font-size: 2rem;
+  font-weight: bold;
 }
 </style>
