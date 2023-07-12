@@ -3,27 +3,39 @@
   <h1 v-if="pokemon">¿Cuál es este Pokémon?</h1>
   <p  v-if="!pokemon" class="waiting">Espere, por favor...</p>
 
-  <PokemonImage 
-    v-if="this.pokemon"
-    :pokemon-id="this.pokemon.id"
-    :show-images="showImages"
-    class="fade-in"
-  />
+  <div v-if="playing">
+    <PokemonImage 
+      v-if="this.pokemon"
+      :pokemon-id="this.pokemon.id"
+      :show-images="showImages"
+      class="fade-in"
+    />
 
-  <PokemonOptions 
-    :pokemons="pokemonArr"
-    @selection="checkAnswer"
-  />
+    <PokemonOptions 
+      :pokemons="pokemonArr"
+      @selection="checkAnswer"
+    />
 
-  <div v-if="showMessage" class="fade-in">
-    <h2> {{ message }} </h2>
-    <button      
-      class="btn"
-      @click="newGame"
-    >
-    Siguiente
-    </button>
+    <div v-if="showMessage" class="fade-in">
+      <h2> {{ message }} </h2>
+      <button      
+        class="btn"
+        @click="nextRound"
+      >
+      Siguiente
+      </button>
+    </div>
   </div>
+
+  <button
+    v-if="!playing"
+    type="button"
+    class="btn"
+    @click="newGame"
+  >
+    Empezar
+  </button>
+
   </main>
 </template>
 
@@ -48,6 +60,7 @@ export default {
       pokemon: null,
       message: null,
       showMessage: false,
+      playing: false
     }
   },
 
@@ -72,7 +85,7 @@ export default {
       this.showMessage = true
     },
 
-    newGame() {
+    nextRound() {
       this.showImages = false
       this.pokemonArr = []
       this.pokemon =  null
@@ -82,12 +95,15 @@ export default {
       this.getRandomPokemon()
     },
 
+    newGame() {
+      this.getRandomPokemon()
+      this.playing = true
+    },
   },
 
   mounted() {
-    this.getRandomPokemon()
-  }
-
+      this.getRandomPokemon()
+    }
 }
 </script>
 
