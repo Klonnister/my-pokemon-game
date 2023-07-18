@@ -1,12 +1,21 @@
 <template>
   <main>
-    <div class="top-bar" v-if="playing">
-      <p>Punteo: {{ points }}</p>
-      <p>Intentos: {{ intentos }}</p>
-    </div>
+    <TopBar 
+      v-if="playing" 
+      :points="points"
+      :intentos="intentos"
+    />
 
     <h1 v-if="pokemon">¿Cuál es este Pokémon?</h1>
     <p  v-if="!pokemon" class="waiting">Espere, por favor...</p>
+    <div v-if="!playing" class="instructions">
+      <h2>Instrucciones:</h2>
+      <ul>
+        <li>Intenta adivinar el Pokemon con la imagen oculta!</li>
+        <li>Cada acierto te da 10 puntos.</li>
+        <li>El juego acaba luego de 3 intentos fallidos.</li>
+      </ul>
+    </div>
 
     <div v-if="!lost">
         <PokemonImage 
@@ -33,7 +42,7 @@
         </div>
     </div>
 
-    <div class="punteo fade-in" v-if="final">
+    <div class="fin-juego fade-in<" v-if="final">
         <h2>Fin del juego</h2>
         <p> Punteo: {{ points }} </p>
     </div>
@@ -51,10 +60,11 @@
 </template>
 
 <script>
+import getPokemonOptions from '@/helpers/getPokemonOptions'
 import PokemonImage from '@/components/PokemonImage.vue'
 import PokemonOptions from '@/components/PokemonOptions.vue'
+import TopBar from '@/components/TopBar.vue'
 
-import getPokemonOptions from '@/helpers/getPokemonOptions'
 
 export default {
   name: 'PokemonPage',
@@ -62,6 +72,7 @@ export default {
   components: {
     PokemonImage,
     PokemonOptions,
+    TopBar,
   },
 
   data() {
@@ -165,20 +176,20 @@ main {
   font-weight: bold;
 }
 
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  inset: 0;
-  top: 0;
-  margin: 0 auto;
-  width: 90%;
-  height: 5%;
-  z-index: 0;
-  font-size: 0.75rem;
+.instructions > ul {
+  list-style-type: none;
+  margin-bottom: 2rem;
 }
 
-.punteo {
+.instructions > h2 {
+  font-weight: bold;
+}
+
+.instructions > ul > li {
+  margin-bottom: 0.3rem;
+}
+
+.fin-juego {
   margin-bottom: 2rem;
 }
 </style>
