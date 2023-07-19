@@ -40,7 +40,11 @@ export default {
 <style scoped>
 img {
     max-width: 9rem;
-
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 
 .hidden-pokemon {
