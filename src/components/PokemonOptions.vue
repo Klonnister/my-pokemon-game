@@ -3,7 +3,8 @@
     
     <li v-for="pokemon in pokemons"
         :key="pokemon.id"
-        @click=" $emit( 'selection', pokemon.id ), pokemon.id "
+        @click=" addColors(), $emit( 'selection', pokemon.id ), pokemon.id "
+        class="option"
     >
       {{ pokemon.name }} 
     </li>
@@ -19,7 +20,25 @@ export default {
       required: true,
     },
     pokemon: Object,
-  }, 
+  },
+  
+  methods: {
+    addColors () {
+      const options = document.querySelectorAll('.option')
+      options.forEach( option => {
+        if( option.innerHTML != this.pokemon.name ) {
+          option.classList.add('wrong')
+        } else {
+          option.classList.add('correct')
+        }
+      })
+
+
+
+
+    },
+
+  }
 }
 </script>
 
@@ -44,6 +63,16 @@ ul > li {
 
 li:hover {
     background-color:beige;
+}
+
+.wrong {
+    border: 1px solid firebrick;
+    color: firebrick;
+}
+
+.correct {
+    border: 1px solid darkgreen;
+    color:darkgreen;
 }
 
 </style>
