@@ -6,10 +6,11 @@
       :intentos="intentos"
     />
 
-    <h1 v-if="pokemon">¿Cuál es este Pokémon?</h1>
+    <h1 v-if="pokemon" class="fade-in">¿Cuál es este Pokémon?</h1>
     <p  v-if="!pokemon" class="waiting">Espere, por favor...</p>
-    <div v-if="!playing" class="instructions">
-      <h2>Instrucciones:</h2>
+    
+    <div v-if="!playing" class="instructions fade-in">
+      <h2>Instrucciones</h2>
       <ul>
         <li>Intenta adivinar el Pokemon con la imagen oculta!</li>
         <li>Cada acierto te da 10 puntos.</li>
@@ -50,7 +51,7 @@
     <button
         v-if="!playing"
         type="button"
-        class="btn"
+        class="btn fade-in"
         @click="newGame"
     >
         Empezar
