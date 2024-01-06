@@ -1,5 +1,8 @@
 # pokemon-game
 
+## Live site
+[Klo-attackontitan](https://klo-attackontitan.netlify.app/home)
+
 ## Project setup
 ```
 npm install
