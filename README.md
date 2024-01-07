@@ -1,7 +1,7 @@
 # pokemon-game
 
 ## Live site
-[Klo-attackontitan]([https://klo-attackontitan.netlify.app/home](https://klo-pokemongame.netlify.app/))
+[Klo-attackontitan]([https://klo-attackontitan.netlify.app/home](https://klo-pokemongame.netlify.app/)
 
 ## Project setup
 ```
